@@ -1,0 +1,22 @@
+{
+  "name": "thaumoctopus-mimicus",
+  "version": "0.0.0",
+  "description": "An isomorphic JavaScript application example",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/yinm/isomorphic-javascript-book.git"
+  },
+  "author": "yinm",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yinm/isomorphic-javascript-book/issues"
+  },
+  "homepage": "https://github.com/yinm/isomorphic-javascript-book#readme",
+  "dependencies": {
+    "hapi": "^8.8.0"
+  }
+}
