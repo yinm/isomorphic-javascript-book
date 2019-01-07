@@ -1,4 +1,7 @@
 import Hapi from 'hapi'
+import nunjucks from 'nunjucks'
+
+nunjucks.configure('./dist')
 
 const server = Hapi.server({
   host: 'localhost',
@@ -9,7 +12,10 @@ server.route({
   method: 'GET',
   path: '/hello',
   handler(request, h) {
-    return 'hello world'
+    return nunjucks.render('index.html', {
+      fname: 'Rick',
+      lname: 'Sanchez'
+    })
   }
 })
 

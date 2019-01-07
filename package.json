@@ -4,7 +4,7 @@
   "description": "An isomorphic JavaScript application example",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src -d dist",
+    "build": "babel src -d dist & cpx src/**/*.html dist",
     "serve": "nodemon --watch dist dist/index.js",
     "start": "npm run watch & npm run serve",
     "watch": "watch 'npm run build' src"
@@ -20,12 +20,14 @@
   },
   "homepage": "https://github.com/yinm/isomorphic-javascript-book#readme",
   "dependencies": {
-    "hapi": "^17.8.1"
+    "hapi": "^17.8.1",
+    "nunjucks": "^3.1.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
+    "cpx": "^1.5.0",
     "nodemon": "^1.18.9",
     "watch": "^1.0.2"
   }
