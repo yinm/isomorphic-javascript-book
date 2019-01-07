@@ -1,4 +1,4 @@
-const Hapi = require('hapi')
+import Hapi from 'hapi'
 
 const server = Hapi.server({
   host: 'localhost',
