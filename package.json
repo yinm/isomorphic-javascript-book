@@ -20,15 +20,15 @@
   },
   "homepage": "https://github.com/yinm/isomorphic-javascript-book#readme",
   "dependencies": {
-    "hapi": "^17.8.1",
-    "nunjucks": "^3.1.6"
+    "hapi": "^8.8.0",
+    "nunjucks": "^1.3.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.3",
-    "cpx": "^1.5.0",
-    "nodemon": "^1.18.9",
-    "watch": "^1.0.2"
+    "babel-cli": "^6.6.5",
+    "babel-preset-es2015": "^6.6.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-nodemon": "^2.0.3",
+    "run-sequence": "^1.1.2"
   }
 }
