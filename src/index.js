@@ -1,5 +1,6 @@
 import Hapi from 'hapi'
 import nunjucks from 'nunjucks'
+import Application from './lib'
 
 nunjucks.configure('./dist')
 
@@ -21,12 +22,12 @@ function getName(request) {
   return name
 }
 
-server.route({
-  method: 'GET',
-  path: '/hello/{name*}',
-  handler(request, h) {
+const application = new Application({
+  '/': (request, h) => {
     return nunjucks.render('index.html', getName(request))
   }
+}, {
+  server: server
 })
 
-server.start()
+application.start()
