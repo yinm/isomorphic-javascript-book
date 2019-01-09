@@ -3,7 +3,7 @@ import Application from './lib'
 import HelloController from './hello-controller'
 import nunjucks from 'nunjucks'
 
-nunjucks.configure('./dist')
+nunjucks.configure('./dist', { autoescape: false })
 
 const server = new Hapi.Server();
 server.connection({
