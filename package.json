@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/yinm/isomorphic-javascript-book#readme",
   "dependencies": {
-    "hapi": "^8.8.0"
+    "hapi": "^8.8.0",
+    "nunjucks": "^3.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
