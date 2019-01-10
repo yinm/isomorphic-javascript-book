@@ -2,6 +2,7 @@ import Hapi from 'hapi';
 import Application from './lib'
 import HelloController from './hello-controller'
 import nunjucks from 'nunjucks'
+import path from 'path'
 
 nunjucks.configure('./dist', { autoescape: false })
 
@@ -35,6 +36,16 @@ server.route({
   path: APP_FILE_PATH,
   handler: (request, reply) => {
     reply.file('dist/build/application.js')
+  }
+})
+
+server.route({
+  method: 'GET',
+  path: '/templates/{template*}',
+  handler: {
+    file: (request) => {
+      return path.join('dist', request.params.template)
+    }
   }
 })
 
