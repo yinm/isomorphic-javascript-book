@@ -1,4 +1,5 @@
 import Call from 'call'
+import query from 'query-string'
 
 export default class Application {
   constructor(routes, options) {
@@ -32,6 +33,28 @@ export default class Application {
     if (route && Controller) {
       console.log(match)
       console.log(Controller)
+
+      const controller = new Controller({
+        query: query.parse(search),
+        params: params
+      })
+
+      const request = () => {}
+      const reply = () => {}
+
+      controller.index(this, request, reply, (err) => {
+        if (err) {
+          return reply(err)
+        }
+
+        controller.render(this.options.target, (err, html) => {
+          if (err) {
+            return reply(err)
+          }
+
+          reply(html)
+        })
+      })
     }
 
     console.log(url)
