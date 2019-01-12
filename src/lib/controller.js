@@ -29,4 +29,12 @@ export default class Controller {
   deserialize() {
     this.context.data = JSON.parse(window.__STATE__)
   }
+
+  attach(el) {
+    // to be implemented by the application
+  }
+
+  detach(el) {
+    // to be implemented by the application
+  }
 }

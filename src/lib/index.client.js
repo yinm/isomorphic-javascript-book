@@ -33,25 +33,30 @@ export default class Application {
       const request = () => {}
       const reply = replyFactory(this)
 
+      if (push) {
+        history.pushState({}, null, url)
+      }
+
       this.controller.index(this, request, reply, (err) => {
         if (err) {
           return reply(err)
         }
 
-        this.controller.render(this.options.target, (err, html) => {
+        let targetEl = document.querySelector(this.options.target)
+        if (previousController) {
+          previousController.detach(targetEl)
+        }
+
+        this.controller.render(this.options.target, (err, response) => {
           if (err) {
             return reply(err)
           }
 
-          reply(html)
+          reply(response)
+
+          this.controller.attach(targetEl)
         })
       })
-    }
-
-    console.log(url)
-
-    if (push) {
-      history.pushState({}, null, url)
     }
   }
 
@@ -100,7 +105,10 @@ export default class Application {
   }
 
   rehydrate() {
+    let targetEl = document.querySelector(this.options.target)
+
     this.controller = this.createController(this.getUrl())
     this.controller.deserialize()
+    this.controller.attach(targetEl)
   }
 }
