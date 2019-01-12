@@ -25,4 +25,8 @@ export default class Controller {
   serialize() {
     return JSON.stringify(this.context.data || {})
   }
+
+  deserialize() {
+    this.context.data = JSON.parse(window.__STATE__)
+  }
 }
