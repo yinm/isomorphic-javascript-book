@@ -7,4 +7,24 @@
   {{body}}
 </body>
 <script type="text/javascript" src="{{application}}"></script>
+<script>
+  console.log(document.cookie)
+
+  document.cookie = "baz=boo"
+  document.cookie = "foo=bar"
+
+  function getCookiesByName(name) {
+    let cookies = document.cookie.split(';')
+
+    for (let i = 0; i < cookies.length; i++) {
+      let [key, value] = cookies[i].split('=')
+      if (key.trim() === name) {
+        console.log(value)
+        return value
+      }
+    }
+  }
+
+  console.log(getCookiesByName('foo'))
+</script>
 </html>
