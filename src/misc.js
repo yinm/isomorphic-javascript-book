@@ -1,15 +1,22 @@
-import http from 'http'
+import Hapi from 'hapi'
 
-function getCookieByName(name, cookies) {
-  for (let i = 0; i < cookies.length; i++) {
-    let [key, value] = cookies[i].split('=')
-    if (key.trim() === name) {
-      return value
-    }
+const server = new Hapi.Server({
+  debug: {
+    request: ['error']
   }
-}
+})
+server.connection({
+  host: 'localhost',
+  port: 8080
+})
 
-http.createServer((req, res) => {
-  console.log(getCookieByName('some-cookie', req.headers.cookie.split(';')))
-  res.end('hello\n')
-}).listen(8080)
+server.route({
+  method: 'GET',
+  path: '/',
+  handler(req, reply) {
+    console.log(req.state['some-cookie'])
+    reply('Hello\n')
+  }
+})
+
+server.start()
