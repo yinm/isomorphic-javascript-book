@@ -1,22 +1,9 @@
-import Hapi from 'hapi'
+import http from 'http'
 
-const server = new Hapi.Server({
-  debug: {
-    request: ['error']
-  }
-})
-server.connection({
-  host: 'localhost',
-  port: 8080
-})
-
-server.route({
-  method: 'GET',
-  path: '/',
-  handler(req, reply) {
-    console.log(req.state['some-cookie'])
-    reply('Hello\n')
-  }
-})
-
-server.start()
+http.createServer((req, res) => {
+  res.writeHead(200, {
+    'Set-Cookie': 'some-cookie=some value',
+    'Content-Type': 'text/plain'
+  })
+  res.end('Hello\n')
+}).listen(8080)
