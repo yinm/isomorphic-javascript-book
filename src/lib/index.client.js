@@ -26,31 +26,19 @@ export default class Application {
       return
     }
 
-    let urlParts = url.split('?')
-    let [path, search] = urlParts
-    let match = this.router.route('get', path)
-    let { route, params } = match
-    let Controller = this.routes[route]
+    let previousController = this.controller
+    this.controller = this.createController(url)
 
-    if (route && Controller) {
-      console.log(match)
-      console.log(Controller)
-
-      const controller = new Controller({
-        query: query.parse(search),
-        params: params,
-        cookie: cookie
-      })
-
+    if (this.controller) {
       const request = () => {}
       const reply = replyFactory(this)
 
-      controller.index(this, request, reply, (err) => {
+      this.controller.index(this, request, reply, (err) => {
         if (err) {
           return reply(err)
         }
 
-        controller.render(this.options.target, (err, html) => {
+        this.controller.render(this.options.target, (err, html) => {
           if (err) {
             return reply(err)
           }
@@ -87,5 +75,31 @@ export default class Application {
         this.navigate(identifier || href)
       }
     })
+
+    this.rehydrate()
+  }
+
+  createController(url) {
+    let urlParts = url.split('?')
+    let [path, search] = urlParts
+    let match = this.router.route('get', path)
+    let { route, params } = match
+    let Controller = this.routes[route]
+
+    return Controller ?
+      new Controller({
+        query: query.parse(search),
+        params: params,
+        cookie: cookie
+      }) : undefined
+  }
+
+  getUrl() {
+    let { pathName, search } = window.location
+    return `${pathName}${search}`
+  }
+
+  rehydrate() {
+    this.controller = this.createController(this.getUrl())
   }
 }
