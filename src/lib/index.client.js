@@ -1,6 +1,7 @@
 import Call from 'call'
 import query from 'query-string'
 import cookie from './cookie.client'
+import replyFactory from './reply.client'
 
 export default class Application {
   constructor(routes, options) {
@@ -42,7 +43,7 @@ export default class Application {
       })
 
       const request = () => {}
-      const reply = () => {}
+      const reply = replyFactory(this)
 
       controller.index(this, request, reply, (err) => {
         if (err) {
