@@ -1,31 +1,10 @@
-import Hapi from 'hapi'
+import http from 'http'
 
-const server = new Hapi.Server({
-  debug: {
-    request: ['error']
-  }
-})
-server.connection({
-  host: 'localhost',
-  port: 8080
-})
+http.createServer((req, res) => {
+  res.writeHead(302, {
+    'Location': 'http://theoatmeal.com/',
+    'Content-Type': 'text/plain'
+  })
 
-server.state('some-cookie', {
-  ttl: null,
-  isSecure: true,
-  isHttpOnly: true,
-  encoding: 'base64json',
-  clearInvalid: false, // remove invalid cookies
-  strictHeader: true // don't allow violations of RFC 6265
-})
-
-server.route({
-  method: 'GET',
-  path: '/',
-  handler(req, res) {
-    res.state('some-cookie', {someValue: false})
-    res('Hello\n')
-  }
-})
-
-server.start()
+  res.end('hello\n')
+}).listen(8080)
