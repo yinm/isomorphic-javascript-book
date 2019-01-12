@@ -21,4 +21,8 @@ export default class Controller {
       callback(null, body)
     })
   }
+
+  serialize() {
+    return JSON.stringify(this.context.data || {})
+  }
 }
