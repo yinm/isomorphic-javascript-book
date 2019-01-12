@@ -1,10 +1,21 @@
-import http from 'http'
+import Hapi from 'hapi'
 
-http.createServer((req, res) => {
-  res.writeHead(302, {
-    'Location': 'http://theoatmeal.com/',
-    'Content-Type': 'text/plain'
-  })
+const server = new Hapi.Server({
+  debug: {
+    request: ['error']
+  }
+})
+server.connection({
+  host: 'localhost',
+  port: 8080
+})
 
-  res.end('hello\n')
-}).listen(8080)
+server.route({
+  method: 'GET',
+  path: '/',
+  handler(request, reply) {
+    reply.redirect('http://theoatmeal.com/')
+  }
+})
+
+server.start()
